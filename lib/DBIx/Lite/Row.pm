@@ -1,7 +1,5 @@
 package DBIx::Lite::Row;
-{
-  $DBIx::Lite::Row::VERSION = '0.16';
-}
+$DBIx::Lite::Row::VERSION = '0.17';
 use strict;
 use warnings;
 
@@ -109,7 +107,7 @@ sub AUTOLOAD {
     if (my ($table_name, $my_key, $their_key, $rel_type) = $self->_relationship($method)) {
         my $rs = $self->{dbix_lite}
             ->table($table_name)
-            ->search({ $their_key => $self->{data}{$my_key} });
+            ->search({ "me.$their_key" => $self->{data}{$my_key} });
         return $rel_type eq 'has_many' ? $rs : $rs->single;
     }
     
@@ -131,7 +129,7 @@ DBIx::Lite::Row
 
 =head1 VERSION
 
-version 0.16
+version 0.17
 
 =head1 OVERVIEW
 
@@ -186,7 +184,7 @@ Alessandro Ranellucci <aar@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2014 by Alessandro Ranellucci.
+This software is copyright (c) 2015 by Alessandro Ranellucci.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

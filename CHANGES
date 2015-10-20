@@ -1,60 +1,29 @@
 ==================================================
-Changes from 2013-08-07 00:00:00 +0000 to present.
+Changes from 2014-10-20 00:00:00 +0000 to present.
 ==================================================
 
 -----------------------------------------
-version 0.16 at 2014-08-07 15:20:35 +0000
+version 0.17 at 2015-10-20 13:07:08 +0000
 -----------------------------------------
 
-  Change: 11cb2a8d11f12c893055749deb13675fa4a628cd
+  Change: 30bc62fdf50b09b65426ee8456f3664930959093
   Author: Alessandro Ranellucci <aar@cpan.org>
-  Date : 2014-08-07 17:18:39 +0000
+  Date : 2015-10-20 14:29:18 +0000
 
-    Return number of affected rows after update() and delete(). #7 
+    Document usage of literal SQL in join conditions 
 
-  Change: 89d6b70c68e4be9175a44e71c02431c3a369edfd
+  Change: c51e963196a55175e5e8e6d1d8a895f56d719a32
   Author: Alessandro Ranellucci <aar@cpan.org>
-  Date : 2014-08-07 17:07:26 +0000
+  Date : 2015-10-20 11:11:21 +0000
 
-    Remove smart match operator. #5 
+    Bugfix: one_to_many relationships with ambiguous column names 
 
-  Change: 0ccc177842ef29f377d095f94bfe4cae3226b5d3
+  Change: 393d41be78b11e1557bf1bdd7c0658973ddb9187
   Author: Alessandro Ranellucci <aar@cpan.org>
-  Date : 2014-08-07 17:05:26 +0000
+  Date : 2015-10-20 11:10:07 +0000
 
-    Merge pull request #4 from keedi/feature/last-insert-id-support-pg
-
-    Feature/last insert id support pg 
-
-  Change: f229007be7bbf151a4df5ab3ac9cbf6ec5f6a1b1
-  Author: Keedi Kim <keedi.k@gmail.com>
-  Date : 2013-02-27 11:12:18 +0000
-
-    Specify minimum version of DBI for last_insert_id
-
-    DBI 1.38 is required at least to use last_insert_id
-    https://metacpan.org/module/DBI#last_insert_id 
-
-  Change: 53c2259db1ce0c1c2711fe6e2feb1deab45d4b3b
-  Author: Keedi Kim <keedi.k@gmail.com>
-  Date : 2013-02-27 11:11:50 +0000
-
-    Support last insert id for Pg driver 
-
-  Change: 2e6ff682fa0d45ab7b4cca3e5faf612286e15f75
-  Author: Alessandro Ranellucci <aar@cpan.org>
-  Date : 2013-01-10 10:31:35 +0000
-
-    Merge pull request #3 from keedi/feature/add-column-names
-
-    Add column_names() to retrieve column names 
-
-  Change: 3efd26263c61eda26fcb3c8d98c8a33e80e4dd6b
-  Author: Keedi Kim <keedi.k@gmail.com>
-  Date : 2013-01-11 02:23:01 +0000
-
-    Add column_names() to retrieve column names 
+    Bugfix: get_column() on a non-PK column was returning wrong values 
 
 ================================================
-Plus 6 releases after 2013-08-07 00:00:00 +0000.
+Plus 7 releases after 2014-10-20 00:00:00 +0000.
 ================================================

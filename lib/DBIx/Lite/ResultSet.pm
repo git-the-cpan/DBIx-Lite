@@ -1,7 +1,5 @@
 package DBIx::Lite::ResultSet;
-{
-  $DBIx::Lite::ResultSet::VERSION = '0.16';
-}
+$DBIx::Lite::ResultSet::VERSION = '0.17';
 use strict;
 use warnings;
 
@@ -128,7 +126,9 @@ sub select_sql {
     if (!$have_scalar_ref && (my @pk = $self->{cur_table}->pk)) {
         if (not firstval { "$cur_table_prefix.*" eq $_ } @cols) {
             $_ =~ s/^[^.]+$/$cur_table_prefix\.$&/ for @pk;
-            unshift @cols, @pk;
+            # append instead of prepent, otherwise get_column() on a non-PK column 
+            # would return the wrong values
+            push @cols, @pk;
         }
     }
     
@@ -499,7 +499,7 @@ DBIx::Lite::ResultSet
 
 =head1 VERSION
 
-version 0.16
+version 0.17
 
 =head1 OVERVIEW
 
@@ -611,7 +611,11 @@ It returns a L<DBIx::Lite::ResultSet> object to allow for further method chainin
 
 The join conditions are in the form I<my columns> => I<their columns>. In the above
 example, we're selecting from the I<books> table to the I<authors> table, so the join 
-condition maps I<my> C<author_id> column to I<their> C<id> column.
+condition maps I<my> C<author_id> column to I<their> C<id> column. In order to insert
+literal SQL in the join conditions you can supply a string reference containing the operator,
+like this:
+
+    my $rs = $books_rs->inner_join('authors', { author_id => 'id', 'authors.age' => \"< 18" });
 
 The third, optional, argument can be a hashref with options. The only supported one
 is currently I<prevent_duplicates>: set this to true to have DBIx::Lite check whether
@@ -834,7 +838,7 @@ Alessandro Ranellucci <aar@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2014 by Alessandro Ranellucci.
+This software is copyright (c) 2015 by Alessandro Ranellucci.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

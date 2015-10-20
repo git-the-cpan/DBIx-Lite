@@ -1,7 +1,5 @@
 package DBIx::Lite;
-{
-  $DBIx::Lite::VERSION = '0.16';
-}
+$DBIx::Lite::VERSION = '0.17';
 # ABSTRACT: Chained and minimal ORM
 use strict;
 use warnings;
@@ -145,7 +143,7 @@ DBIx::Lite - Chained and minimal ORM
 
 =head1 VERSION
 
-version 0.16
+version 0.17
 
 =head1 SYNOPSIS
 
@@ -313,7 +311,7 @@ Alessandro Ranellucci <aar@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2014 by Alessandro Ranellucci.
+This software is copyright (c) 2015 by Alessandro Ranellucci.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
