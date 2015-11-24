@@ -1,5 +1,5 @@
 package DBIx::Lite::Schema::Table;
-$DBIx::Lite::Schema::Table::VERSION = '0.17';
+$DBIx::Lite::Schema::Table::VERSION = '0.18';
 use strict;
 use warnings;
 
@@ -112,9 +112,11 @@ sub _init_package {
 
 1;
 
-
 __END__
+
 =pod
+
+=encoding UTF-8
 
 =head1 NAME
 
@@ -122,7 +124,7 @@ DBIx::Lite::Schema::Table
 
 =head1 VERSION
 
-version 0.17
+version 0.18
 
 =head1 OVERVIEW
 
@@ -215,4 +217,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

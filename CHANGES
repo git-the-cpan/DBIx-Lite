@@ -1,9 +1,49 @@
 ==================================================
-Changes from 2014-10-20 00:00:00 +0000 to present.
+Changes from 2014-11-24 00:00:00 +0000 to present.
 ==================================================
 
 -----------------------------------------
-version 0.17 at 2015-10-20 13:07:08 +0000
+version 0.18 at 2015-11-24 11:05:36 +0000
+-----------------------------------------
+
+  Change: 566289017ad1c24d544d996d6cdf199128e99221
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2015-11-24 11:10:00 +0000
+
+    Several updates and additions 
+
+  Change: 1b888de776349a0236613781e83496b0ccc9fefb
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2015-11-23 15:33:49 +0000
+
+    Use table aliasing for UPDATE queries too 
+
+  Change: 3462d2ccbccda878db990b71b83bd6426446034d
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2015-11-12 10:22:42 +0000
+
+    Update version number 
+
+  Change: 78be4cf65e02f593e3ffb471229f3f5a205a435e
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2015-11-12 10:22:25 +0000
+
+    Don't supply column_alias to SQL::Abstract::More 
+
+  Change: 513b62898f0a1c3b07ddddec3c6e09889d77f15f
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2015-11-12 10:21:14 +0000
+
+    Skip undef where conditions 
+
+  Change: e4fb08a6ad63e408c2651eebca4344b8b3063fb0
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2015-11-12 00:28:55 +0000
+
+    Remove backticks which are MySQL specific 
+
+-----------------------------------------
+version 0.17 at 2015-10-20 12:29:18 +0000
 -----------------------------------------
 
   Change: 30bc62fdf50b09b65426ee8456f3664930959093
@@ -25,5 +65,5 @@ version 0.17 at 2015-10-20 13:07:08 +0000
     Bugfix: get_column() on a non-PK column was returning wrong values 
 
 ================================================
-Plus 7 releases after 2014-10-20 00:00:00 +0000.
+Plus 7 releases after 2014-11-24 00:00:00 +0000.
 ================================================

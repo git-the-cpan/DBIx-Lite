@@ -1,5 +1,5 @@
 package DBIx::Lite;
-$DBIx::Lite::VERSION = '0.17';
+$DBIx::Lite::VERSION = '0.18';
 # ABSTRACT: Chained and minimal ORM
 use strict;
 use warnings;
@@ -20,7 +20,6 @@ sub new {
     my $self = {
         schema      => delete $params{schema} || DBIx::Lite::Schema->new,
         abstract    => SQL::Abstract::More->new(
-            column_alias => '%s AS `%s`',
             %{ delete $params{abstract} || {} },
         ),
         connector   => delete $params{connector},
@@ -133,9 +132,11 @@ sub _autopk {
 
 1;
 
-
 __END__
+
 =pod
+
+=encoding UTF-8
 
 =head1 NAME
 
@@ -143,7 +144,7 @@ DBIx::Lite - Chained and minimal ORM
 
 =head1 VERSION
 
-version 0.17
+version 0.18
 
 =head1 SYNOPSIS
 
@@ -317,4 +318,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
