@@ -1,10 +1,46 @@
 ==================================================
-Changes from 2014-11-24 00:00:00 +0000 to present.
+Changes from 2014-11-27 00:00:00 +0000 to present.
 ==================================================
 
 -----------------------------------------
-version 0.18 at 2015-11-24 11:05:36 +0000
+version 0.19 at 2015-11-27 09:13:00 +0000
 -----------------------------------------
+
+  Change: 775e58d3ac235883227e363331097aa2dea12cd5
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2015-11-26 00:28:03 +0000
+
+    Removed test.db file 
+
+  Change: fb7729a23861ff1f990ae552b9f71f39fe08e073
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2015-11-26 00:26:55 +0000
+
+    Don't retrieve the primary key(s) unless it's strictly needed for
+    inflating a Row object (output of select_sql() and select_sth()
+    should not contain more columns than the ones requested by caller) 
+
+  Change: f4d245890bf8048fecb6bef447df47172248fa5e
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2015-11-25 21:16:26 +0000
+
+    Allow the undef value for rows_per_page 
+
+  Change: 9c12bb5430df8893f3e3025c88139f7983900149
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2015-11-25 21:14:47 +0000
+
+    Update .gitignore 
+
+-----------------------------------------
+version 0.18 at 2015-11-24 11:06:29 +0000
+-----------------------------------------
+
+  Change: 69219734967ed782775da1d56d01ddd76607c847
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2015-11-24 12:06:29 +0000
+
+    v0.18 
 
   Change: 566289017ad1c24d544d996d6cdf199128e99221
   Author: Alessandro Ranellucci <aar@cpan.org>
@@ -65,5 +101,5 @@ version 0.17 at 2015-10-20 12:29:18 +0000
     Bugfix: get_column() on a non-PK column was returning wrong values 
 
 ================================================
-Plus 7 releases after 2014-11-24 00:00:00 +0000.
+Plus 7 releases after 2014-11-27 00:00:00 +0000.
 ================================================

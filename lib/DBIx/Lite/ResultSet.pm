@@ -1,5 +1,5 @@
 package DBIx::Lite::ResultSet;
-$DBIx::Lite::ResultSet::VERSION = '0.18';
+$DBIx::Lite::ResultSet::VERSION = '0.19';
 use strict;
 use warnings;
 
@@ -14,25 +14,24 @@ sub _new {
     my $class = shift;
     my (%params) = @_;
     
-    # optional arguments
     my $self = {
-        joins           => delete $params{joins} || [],
-        where           => delete $params{where} || [],
-        select          => delete $params{select} || ['me.*'],
-        group_by        => delete $params{group_by},
-        having          => delete $params{having},
-        order_by        => delete $params{order_by},
-        limit           => delete $params{limit},
-        offset          => delete $params{offset},
-        rows_per_page   => delete $params{rows_per_page} || 10,
-        page            => delete $params{page},
-        cur_table       => delete $params{cur_table} || $params{table},
+        joins           => [],
+        where           => [],
+        select          => ['me.*'],
+        rows_per_page   => 10,
     };
     
     # required arguments
     for (qw(dbix_lite table)) {
         $self->{$_} = delete $params{$_} or croak "$_ argument needed";
     }
+    
+    # optional arguments
+    for (grep exists($params{$_}), qw(joins where select group_by having order_by
+        limit offset rows_per_page page cur_table)) {
+        $self->{$_} = delete $params{$_};
+    }
+    $self->{cur_table} //= $self->{table};
     
     !%params
         or croak "Unknown options: " . join(', ', keys %params);
@@ -88,7 +87,7 @@ sub pager {
     if (!$self->{pager}) {
         $self->{pager} ||= Data::Page->new;
         $self->{pager}->total_entries($self->page(undef)->count);
-        $self->{pager}->entries_per_page($self->{rows_per_page});
+        $self->{pager}->entries_per_page($self->{rows_per_page} // $self->{pager}->total_entries);
         $self->{pager}->current_page($self->{page});
     }
     return $self->{pager};
@@ -124,7 +123,6 @@ sub select_sql {
     
     # prepare names of columns to be selected
     my @cols = ();
-    my $have_scalar_ref = 0;
     my $cur_table_prefix = $self->_table_alias($self->{cur_table}{name}, 'select');
     foreach my $col (grep defined $_, @{$self->{select}}) {
         # check whether user specified an alias
@@ -136,24 +134,10 @@ sub select_sql {
         # explode the expression if it's a scalar ref
         if (ref $expr eq 'SCALAR') {
             $expr = $$expr;
-            $have_scalar_ref = 1;
         }
         
         # build the column definition according to the SQL::Abstract::More syntax
         push @cols, $expr . ($as ? "|$as" : "");
-    }
-    
-    # always retrieve our primary key if provided and no col name is a scalar ref
-    if (!$have_scalar_ref && (my @pk = $self->{cur_table}->pk)) {
-        # skip this if we are retrieving all columns (me.*)
-        if (not firstval { "$cur_table_prefix.*" eq $_ } @cols) {
-            # prepend table alias to all pk columns
-            $_ =~ s/^[^.]+$/$cur_table_prefix\.$&/ for @pk;
-            
-            # append instead of prepend, otherwise get_column() on a non-PK column 
-            # would return the wrong values
-            push @cols, @pk;
-        }
     }
     
     # joins
@@ -195,7 +179,7 @@ sub select_sql {
     }
     
     # paging overrides limit and offset if any
-    if ($self->{page}) {
+    if ($self->{page} && defined $self->{rows_per_page}) {
         $self->{limit} = $self->{rows_per_page};
         $self->{offset} = $self->pager->skipped;
     }
@@ -223,6 +207,36 @@ sub select_sth {
     
     my ($sql, @bind) = $self->select_sql;
     return $self->{dbix_lite}->dbh->prepare($sql) || undef, @bind;
+}
+
+sub _select_sth_for_object {
+    my $self = shift;
+    
+    # check whether any of the selected columns is a scalar ref
+    my $cur_table_prefix = $self->_table_alias($self->{cur_table}{name}, 'select');
+    my $have_scalar_ref = 0;
+    my $have_star = 0;
+    foreach my $col (grep defined $_, @{$self->{select}}) {
+        my $expr = ref($col) eq 'ARRAY' ? $col->[0] : $col;
+        if (ref($expr) eq 'SCALAR') {
+            $have_scalar_ref = 1;
+        } elsif ($expr eq "$cur_table_prefix.*") {
+            $have_star = 1;
+        }
+    }
+    
+    # always retrieve our primary key if provided and no col name is a scalar ref
+    # also skip this if we are retrieving all columns (me.*)
+    if (!$have_scalar_ref && !$have_star && (my @pk = $self->{cur_table}->pk)) {
+        # prepend table alias to all pk columns
+        $_ =~ s/^[^.]+$/$cur_table_prefix\.$&/ for @pk;
+        
+        # append instead of prepend, otherwise get_column() on a non-PK column 
+        # would return the wrong values
+        $self = $self->select_also(@pk);
+    }
+    
+    return $self->select_sth;
 }
 
 sub insert_sql {
@@ -294,8 +308,9 @@ sub update_sql {
     }
     
     return $self->{dbix_lite}->{abstract}->update(
-        $self->_table_alias_expr($self->{cur_table}{name}, 'update'),
-        $update_cols, $update_where,
+        -table  => $self->_table_alias_expr($self->{cur_table}{name}, 'update'),
+        -set    => $update_cols,
+        -where  => $update_where,
     );
 }
 
@@ -383,7 +398,7 @@ sub single {
     
     my $row;
     $self->{dbix_lite}->dbh_do(sub {
-        my ($sth, @bind) = $self->select_sth;
+        my ($sth, @bind) = $self->_select_sth_for_object;
         $sth->execute(@bind);
         $row = $sth->fetchrow_hashref;
     });
@@ -407,7 +422,7 @@ sub all {
     
     my $rows;
     $self->{dbix_lite}->dbh_do(sub {
-        my ($sth, @bind) = $self->select_sth;
+        my ($sth, @bind) = $self->_select_sth_for_object;
         $sth->execute(@bind);
         $rows = $sth->fetchall_arrayref({});
     });
@@ -418,7 +433,7 @@ sub next {
     my $self = shift;
     
     $self->{dbix_lite}->dbh_do(sub {
-        ($self->{sth}, my @bind) = $self->select_sth;
+        ($self->{sth}, my @bind) = $self->_select_sth_for_object;
         $self->{sth}->execute(@bind);
     }) if !$self->{sth};
     
@@ -578,7 +593,7 @@ DBIx::Lite::ResultSet
 
 =head1 VERSION
 
-version 0.18
+version 0.19
 
 =head1 OVERVIEW
 
@@ -911,7 +926,8 @@ It returns a L<DBIx::Lite::ResultSet> object to allow for further method chainin
 =head2 rows_per_page
 
 This method accepts the number of rows for each page. It defaults to 10, and it has
-no effect unless L<page> is also called.
+no effect unless L<page> is also called. The undef value means that all records will
+be put on a single page.
 It returns a L<DBIx::Lite::ResultSet> object to allow for further method chaining.
 
     my $rs = $books_rs->rows_per_page(50)->page(3);
