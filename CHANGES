@@ -1,10 +1,34 @@
 ==================================================
-Changes from 2014-11-27 00:00:00 +0000 to present.
+Changes from 2014-12-18 00:00:00 +0000 to present.
 ==================================================
 
 -----------------------------------------
-version 0.19 at 2015-11-27 09:13:00 +0000
+version 0.20 at 2015-12-18 12:41:45 +0000
 -----------------------------------------
+
+  Change: 327a24866e545fc69223461f69427969a153f894
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2015-12-13 17:27:57 +0000
+
+    Allow customization of both accessors when installing a one_to_many
+    relationship in order to support tables having two or more fields
+    referencing the same table 
+
+  Change: 7e435282aec20eb353df78c3784e89701c785b89
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2015-12-11 12:11:26 +0000
+
+    More flexible support for custom row classes 
+
+-----------------------------------------
+version 0.19 at 2015-11-27 09:14:04 +0000
+-----------------------------------------
+
+  Change: 926b618182ab5f428faf5f5e34b5e527e54baa95
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2015-11-27 10:14:04 +0000
+
+    v0.19 
 
   Change: 775e58d3ac235883227e363331097aa2dea12cd5
   Author: Alessandro Ranellucci <aar@cpan.org>
@@ -101,5 +125,5 @@ version 0.17 at 2015-10-20 12:29:18 +0000
     Bugfix: get_column() on a non-PK column was returning wrong values 
 
 ================================================
-Plus 7 releases after 2014-11-27 00:00:00 +0000.
+Plus 7 releases after 2014-12-18 00:00:00 +0000.
 ================================================
