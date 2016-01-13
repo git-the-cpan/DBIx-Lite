@@ -1,9 +1,41 @@
 ==================================================
-Changes from 2014-12-18 00:00:00 +0000 to present.
+Changes from 2015-01-13 00:00:00 +0000 to present.
 ==================================================
 
 -----------------------------------------
-version 0.20 at 2015-12-18 12:41:45 +0000
+version 0.21 at 2016-01-13 09:00:32 +0000
+-----------------------------------------
+
+  Change: d0745d4f1ccb3d7342452a8667ed0524127cb048
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2016-01-12 16:47:32 +0000
+
+    Merge pull request #10 from kimcognito/master
+
+    Fix for Table->resultset_class accessor 
+
+  Change: b15689611ba4a7a8f757c2ed4ce6e6940027161c
+  Author: Kim Plassmeier <k.plassmeier@zbw.eu>
+  Date : 2016-01-12 13:42:56 +0000
+
+    Table->resultset_class always returned undef when used as accessor.
+
+    * E.g. in DBIx::Lite->table(...). 
+
+  Change: e35edb319298433cc1c174d5ee8ae9b92df4bb78
+  Author: Kim Plassmeier <k.plassmeier@zbw.eu>
+  Date : 2016-01-12 13:42:56 +0000
+
+    Added test for custom "resultset_class". 
+
+  Change: 0ee546123d53d78fd1f87e9a294bb5d15a92d5c8
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2016-01-06 17:02:31 +0000
+
+    Add test for alternative syntax of one_to_many() 
+
+-----------------------------------------
+version 0.20 at 2015-12-13 16:27:57 +0000
 -----------------------------------------
 
   Change: 327a24866e545fc69223461f69427969a153f894
@@ -125,5 +157,5 @@ version 0.17 at 2015-10-20 12:29:18 +0000
     Bugfix: get_column() on a non-PK column was returning wrong values 
 
 ================================================
-Plus 7 releases after 2014-12-18 00:00:00 +0000.
+Plus 7 releases after 2015-01-13 00:00:00 +0000.
 ================================================

@@ -1,5 +1,5 @@
 package DBIx::Lite::ResultSet;
-$DBIx::Lite::ResultSet::VERSION = '0.20';
+$DBIx::Lite::ResultSet::VERSION = '0.21';
 use strict;
 use warnings;
 
@@ -625,7 +625,7 @@ DBIx::Lite::ResultSet
 
 =head1 VERSION
 
-version 0.20
+version 0.21
 
 =head1 OVERVIEW
 
@@ -984,7 +984,7 @@ Alessandro Ranellucci <aar@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2015 by Alessandro Ranellucci.
+This software is copyright (c) 2016 by Alessandro Ranellucci.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
