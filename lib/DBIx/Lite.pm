@@ -1,5 +1,5 @@
 package DBIx::Lite;
-$DBIx::Lite::VERSION = '0.21';
+$DBIx::Lite::VERSION = '0.22';
 # ABSTRACT: Chained and minimal ORM
 use strict;
 use warnings;
@@ -144,7 +144,7 @@ DBIx::Lite - Chained and minimal ORM
 
 =head1 VERSION
 
-version 0.21
+version 0.22
 
 =head1 SYNOPSIS
 
@@ -274,8 +274,8 @@ This argument allows you to supply options for L<SQL::Abstract::More> module. He
 example for MySQL DB backend to quote fields names with backtick to allow using reserved
 words as column's names.
 
-    my $db = DBIx::Lite->new( abstract => { quote_char => '`', name_sep => '.' } );
-    $db->connect("DBI:mysql:$db_dbname;host=$db_host", $db_username, $db_password); 
+    my $dbix = DBIx::Lite->new( abstract => { quote_char => '`', name_sep => '.' } );
+    $dbix->connect("DBI:mysql:$db_dbname;host=$db_host", $db_username, $db_password); 
 
 =back
 
@@ -304,7 +304,15 @@ See the L<DBIx::Lite::Schema> documentation for an explanation of its methods.
 
 This method returns a L<DBI> database handle that you can use to perform manual queries.
 
-=for Pod::Coverage dbh_do driver_name txn
+=head2 txn
+
+This method accepts a coderef which will be run inside a transaction.
+
+    $dbix->txn(sub {
+        $dbix->table('books')->update({ year => 2015 });
+    });
+
+=for Pod::Coverage dbh_do driver_name
 
 =head1 AUTHOR
 

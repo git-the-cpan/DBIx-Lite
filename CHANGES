@@ -1,10 +1,33 @@
 ==================================================
-Changes from 2015-01-13 00:00:00 +0000 to present.
+Changes from 2015-02-03 00:00:00 +0000 to present.
 ==================================================
 
 -----------------------------------------
-version 0.21 at 2016-01-13 09:00:32 +0000
+version 0.22 at 2016-02-03 09:31:37 +0000
 -----------------------------------------
+
+  Change: 70b334f2903a1a1db8a7c45b073d6171c10a4024
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2016-02-03 10:31:18 +0000
+
+    Added for_update() 
+
+  Change: c35698585028c69cbad1dd72be0ac1d5fd4747bf
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2016-01-20 20:32:58 +0000
+
+    ->count() now implies ->order_by(undef) for preventing errors in
+    Postgres 
+
+-----------------------------------------
+version 0.21 at 2016-01-13 09:00:46 +0000
+-----------------------------------------
+
+  Change: a0023cbf6b524f46fdb2679d1d129351f14eb06b
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2016-01-13 10:00:46 +0000
+
+    v0.21 
 
   Change: d0745d4f1ccb3d7342452a8667ed0524127cb048
   Author: Alessandro Ranellucci <aar@cpan.org>
@@ -157,5 +180,5 @@ version 0.17 at 2015-10-20 12:29:18 +0000
     Bugfix: get_column() on a non-PK column was returning wrong values 
 
 ================================================
-Plus 7 releases after 2015-01-13 00:00:00 +0000.
+Plus 7 releases after 2015-02-03 00:00:00 +0000.
 ================================================
