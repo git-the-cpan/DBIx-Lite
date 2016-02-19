@@ -1,5 +1,5 @@
 package DBIx::Lite::Row;
-$DBIx::Lite::Row::VERSION = '0.22';
+$DBIx::Lite::Row::VERSION = '0.23';
 use strict;
 use warnings;
 
@@ -125,7 +125,7 @@ DBIx::Lite::Row
 
 =head1 VERSION
 
-version 0.22
+version 0.23
 
 =head1 OVERVIEW
 

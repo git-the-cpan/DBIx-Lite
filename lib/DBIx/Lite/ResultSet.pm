@@ -1,5 +1,5 @@
 package DBIx::Lite::ResultSet;
-$DBIx::Lite::ResultSet::VERSION = '0.22';
+$DBIx::Lite::ResultSet::VERSION = '0.23';
 use strict;
 use warnings;
 
@@ -596,6 +596,8 @@ sub _inflate_row {
         croak "No ${package}::${method} method exists"
             if !$package->can($method);
         $storage = $object->$method;
+        croak "${package}::${method}() did not return a hashref"
+            if ref($storage) ne 'HASH';
     } else {
         $storage = $object;
     }
@@ -640,7 +642,7 @@ DBIx::Lite::ResultSet
 
 =head1 VERSION
 
-version 0.22
+version 0.23
 
 =head1 OVERVIEW
 
