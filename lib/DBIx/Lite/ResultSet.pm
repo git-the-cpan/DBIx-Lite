@@ -1,5 +1,5 @@
 package DBIx::Lite::ResultSet;
-$DBIx::Lite::ResultSet::VERSION = '0.23';
+$DBIx::Lite::ResultSet::VERSION = '0.24';
 use strict;
 use warnings;
 
@@ -384,7 +384,7 @@ sub delete_sql {
     }
     
     return $self->{dbix_lite}->{abstract}->delete(
-        $self->{cur_table}{name},
+        $self->_table_alias_expr($self->{cur_table}{name}, 'delete'),
         $delete_where,
     );
 }
@@ -542,7 +542,8 @@ sub _table_alias {
     
     if ($table_name eq $self->{table}{name}) {
         if ($op eq 'select'
-            || ($op eq 'update' && $driver_name ne 'SQLite')) {
+            || ($op eq 'update' && $driver_name =~ /^(?:MySQL|Pg)$/)
+            || ($op eq 'delete' && $driver_name eq 'Pg')) {
             return 'me';
         }
     }
@@ -642,7 +643,7 @@ DBIx::Lite::ResultSet
 
 =head1 VERSION
 
-version 0.23
+version 0.24
 
 =head1 OVERVIEW
 

@@ -1,10 +1,27 @@
 ==================================================
-Changes from 2015-02-19 00:00:00 +0000 to present.
+Changes from 2015-02-23 00:00:00 +0000 to present.
 ==================================================
 
 -----------------------------------------
-version 0.23 at 2016-02-19 09:50:14 +0000
+version 0.24 at 2016-02-23 11:31:28 +0000
 -----------------------------------------
+
+  Change: e3490035ce5c7afb68f0744c26b6384bd3265efa
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2016-02-23 12:31:04 +0000
+
+    Use the 'me' table alias also for deletion in PostgreSQL and other
+    databases supporting it 
+
+-----------------------------------------
+version 0.23 at 2016-02-19 09:50:24 +0000
+-----------------------------------------
+
+  Change: a8e854181d6aed238c4a033737ff697403176953
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2016-02-19 10:50:24 +0000
+
+    v0.23 
 
   Change: 5b223eec18ae2bbffeb64b16b711d0b3513a571d
   Author: Alessandro Ranellucci <aar@cpan.org>
@@ -190,5 +207,5 @@ version 0.17 at 2015-10-20 12:29:18 +0000
     Bugfix: get_column() on a non-PK column was returning wrong values 
 
 ================================================
-Plus 7 releases after 2015-02-19 00:00:00 +0000.
+Plus 7 releases after 2015-02-23 00:00:00 +0000.
 ================================================
